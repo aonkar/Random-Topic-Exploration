@@ -14,7 +14,7 @@ public class LinkedListOperations {
 		list.deleteNode(4);
 		list.printElements();
 		ReverseLinkedList<Integer> listReverse = new ReverseLinkedList<Integer>();
-		listReverse.reverseList(list.head);
+		list.head = listReverse.reverseList(list.head);
 		list.printElements();
 		
 

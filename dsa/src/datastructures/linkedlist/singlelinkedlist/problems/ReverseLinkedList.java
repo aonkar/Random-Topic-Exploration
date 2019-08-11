@@ -4,7 +4,7 @@ import datastructures.linkedlist.singlelinkedlist.Node;
 
 public class ReverseLinkedList<T> {
 
-	public void reverseList(Node<T> head) {
+	public Node<T> reverseList(Node<T> head) {
 
 		if (head != null) {
 			Node<T> curr = head;
@@ -17,9 +17,9 @@ public class ReverseLinkedList<T> {
 				prev = curr;
 				curr = next;
 			}
-			head = prev;
+			return prev;
 		}
-
+		return null;
 	}
 
 }

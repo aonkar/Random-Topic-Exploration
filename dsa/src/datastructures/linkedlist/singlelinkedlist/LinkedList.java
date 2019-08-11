@@ -7,7 +7,7 @@ public class LinkedList<T> {
 
 	public void addNode(T data) {
 
-		Node<T> node = new Node<T>(data);
+		Node<T> node = new Node<>(data);
 		if (isEmpty()) {
 			head = node;
 			tail = node;
@@ -59,9 +59,6 @@ public class LinkedList<T> {
 	}
 
 	public boolean isEmpty() {
-		if (head == null) {
-			return true;
-		}
-		return false;
+		return head == null;
 	}
 }
