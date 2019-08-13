@@ -7,18 +7,14 @@ public class PrintNodeValueFromTail {
 	public void printNodeValue(Node<Integer>head, int positionFromTail) {
 
         Node<Integer> temp = head;
-        int data = head.data;
-        int count = 0;
-        while(temp != null){
-            if(count == positionFromTail){
-                count = -1;
-                head = head.next;
-                data = head.data;
-            }
-            temp = temp.next;
-            count++;
+        for(int i=0;i<positionFromTail;i++) {
+        	temp = temp.next;
         }
-        System.out.println(data);
+        while(temp.next != null){
+                head = head.next;
+                temp = temp.next;
+        }
+        System.out.println(head.data);
 	}
 
 }
