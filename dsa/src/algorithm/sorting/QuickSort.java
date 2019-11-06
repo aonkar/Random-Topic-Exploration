@@ -5,10 +5,8 @@ import java.util.Arrays;
 public class QuickSort {
 
 	public static void main(String[] args) {
-		final Integer[] array = new Integer[] { -14, -12, 16,3, 8, -1 };
+		final Integer[] array = new Integer[] { 8, 3, 4, 6, 1, 10, 2 };
 		quickSort(array, 0, array.length - 1);
-		Arrays.asList(array).forEach(System.out::println);
-
 	}
 
 	private static void quickSort(Integer[] array, Integer low, Integer high) {
@@ -22,20 +20,25 @@ public class QuickSort {
 	}
 
 	private static Integer partition(Integer[] array, Integer low, Integer high, Integer pivot) {
-		while(low <= high) {
-			while(array[low] < pivot) {
+		while (low < high) {
+			while (low < high && array[low] < pivot) {
 				low++;
 			}
-			while(array[high] > pivot) {
+			while (low < high && array[high] > pivot) {
 				high--;
 			}
-			
-			if(low<=high) {
-				swap(array, low,high);
+
+			if (low < high) {
+				swap(array, low, high);
 				low++;
 				high--;
+			} else if (low.equals(high)) {
+				low++;
 			}
 		}
+		System.out.println("index : " + low);
+		Arrays.asList(array).forEach(System.out::print);
+		System.out.println("");
 		return low;
 	}
 
