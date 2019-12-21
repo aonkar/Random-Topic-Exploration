@@ -1,0 +1,55 @@
+1. Database connection is given by the hibernate as session with the help of SessionFactory.
+2. One sessionFactory per Application(per Datasource) unless we use more that on datasource.
+3. Once the save method is called on the session.save() id is generated and once the session.getTransaction.commit() is executed the data is persisted in the Database.
+4. Value type is the classes which donot have a mapped database table they are part of another class which has database table and these classes are called Entity type.
+	Hence Entity type has a unique id and value type has no unique id
+5. Hibernate does automatic dirty check. if from open session to commit if the state of the object changes then an update query is fired.
+6. Mark a value type as @Embaddable to make it embed into a Entity type and mark @Embedded in the entity class for the value type
+7. hbm2ddl update
+8. @AttributeOverrides
+	@AttributeOverride is used to updaate the default column mapping provided in the value type in Entity type
+9. 	@ManyToOne 
+	@JoinColumn(name='guide_id') where guide_id is in the current table
+10. If we want to persist the cascading Entity type with the save of the parent entity then use session.persist(parentEntity);
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE}) 
+	@JoinColumn(name='guide_id') where guide_id is in the current table
+11. @OneToMany(mappedBy = 'guide') here the 'guide' is the instance variable name in the student class.	
+12. In a bidirectional relationship the Entity with the many is the owner of the relationship and the one which defines the relation with the column and the inverse end entity will just point to the instance variable name of the owner class
+13. Owner entity persist will create an update on dirty read if the inverse end changes but the other way round is not true.
+14. The EntityType which has the foreign key is the owner and the Entity type which has the primary key being foreign key to another class is the inverse end.
+15. @OneToOne same as oneToMany but this needs to have a unique constraint=true and this doesnt have the inverseEnd persist
+16. Owner Entity 
+	@ManyToMany(cascade={CascadeType.PERSIST})
+	@JoinTable(
+	name: "movie_actor",
+	joinColumn: movie_id",
+	inverseColumn: "actor_id")
+17. Inverse End entity is always the same @ManyToMany(mappedBy = 'actors')
+18. @Enumerated stores the enum data on to the column
+	a. if just used as above stores the ordinal order 0,1,2,3
+	b. if used as @Enumerated(EnumType.String)
+19. To create a composite primary key move the fields of the composite keys to a new class and annotate it with the @Embeddable and implement serializable
+	and in parent class use this class annotated with @EmebeddedId
+20. Best practice to have a id with no business meaning and not use SSN , ISBN and so on.
+21. Composite Foreign key @JoinColumns({
+	@JoinCOlumn(name="", referencedColumn="")
+})
+22. When ever we create a new session hibernate creates a persistant context. First level cache is session level per session.
+23. Second level cache is at the HibernateSessionFactory level
+24. By default oneToMany and ManyToMany are lazy loaded for the child entiy/value type. FetchType to eager makes the parent Entity type load child entity type as well.
+25. ManyToOne and OneToOne is eagerly loaded
+26. Cascading = "merge" will merge the child object as well with the parent object else only parent object is persisted.
+27. Have multiple transactions in a session then we donot need to merge
+28. @version is used on the Entity type to prevent the detached merge if the value has been updated in the backend i.e. a newer version is available in the db than the version of the object in detached mode.
+this is known as optimistic lock.
+29. We can set pessimistic lock using Hibernate.
+	a. on createQuery call setLockMode(LockModeType.Pessimistic_READ) for read and setLockMode(LockModeType.Pessimistic_Write) 
+	b. writelock will not allow other users to read or write whereas the readlock allows the other users to read but not write.
+30. The firstLevel cache can have only on object reference for one row in a database
+31. LowLevel cache will give you REPEQTABLE_READ even if the isolation level is lower
+32. Data in the 2nd level cache stores not the heavy object but in map as key value pairs. There are three regions : 
+	a. Entity data cache
+	b. Collection cache
+	c. Query result cache
+33. Second level cache is READ_WRITE isolation level or Read_committed
+	
