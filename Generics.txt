@@ -1,0 +1,33 @@
+1. public <T> void print(T a);
+2. public <T> void print(T[] a);
+3. public <T,E> void print(T a, E b);
+4. public <T> T print(T a);
+5. Bounded type parameter: It allows to invoke the methods inside the bounded/extended class. See below example.
+6. We have to extend the interface in generics not implement
+	. public <T extends Comparable<T>> T compareItems(T t1, T t2){
+		if(t1.compareTo(t2) > 0){
+			return t1;
+		}
+		return t2;
+	  }
+7. Type Inference algorithm in Java infers the most specific type to infer if two items are passed using generics
+	.public <T> T print(T a, T b); If we pass a string and an integer it will infer return type as a String
+8. Type witness
+	ClassName.<String> print(a,b);
+	// All the below rules are for assignment and not adding to the 
+9. Collection<String> is not assignable to Collection<Object>
+10. If we have <T> then the Erasure will replace all the T with the Object
+11. wildcards : 
+		. Super type of all types of collection is wildcard Collection<?> and not collection<Object>
+		. We can iterate and print the objects in the collections but we cannot add into the collection
+		a. Collection<?> - Collection of any object
+		b. Upper bound wildcard: Collection<? extends String> - 
+			.Collection of object String and its subclasses. 
+			. We can only read and not add anything apart from String
+			. If we want to read then use upperbound
+		c. Inner bound wildcard: Collection<? super String> - 
+			. Collection of object String and its super class. 
+			. We can read but the String return type is not gauranteed.
+			. We can add String and the parent class except for the Object and serializable.
+			. If we want to add/ write then use the lower bound
+12. Bridge Methods
