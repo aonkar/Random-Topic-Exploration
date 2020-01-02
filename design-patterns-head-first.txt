@@ -1,0 +1,23 @@
+Strategy Pattern:
+  . Separate the aspect of your application that varies
+  . Create an Interface and for that behaviours
+  . implement the interface in the specific behaviour class and inject to the Application
+  . Program to Interface
+  . Has-A is better than IS-A. Composition is better than Inheritance
+
+Observer Pattern:
+  . Publisher + Subscribe is the Observer Pattern
+  . Publisher is the one which generates some events and Subscriber is the one which subscribes to such events
+  . Publisher will have a list of Observer which implements a common Interface
+  . Common Interface will have an update method which will be called upon any events that happen in Publisher
+  . The Subscriber will implement the Interface and have its logic of update to the event triggered from the Publisher
+  . The Subscriber will have a reference to the Subject/Publisher so that it can register/ deregister from the Subject
+  . We can pass the data upfront this is a push model or else we can just update the Subscriber that the event has been generated and just give the reference to the current state of the Publisher where the Subscriber can pull the required data if required
+
+Decorator Pattern:
+  . This pattern is used when you want to add multiple or dynamic functionality/behaviour to an object recursively
+  . We use Inheritance sometimes to achieve type matching rather than to get behaviour
+  . One Common Interface/Abstract class which we use to create a concrete classes out of it and a Decorator Interface/Abstract class which also extends this class
+  . Then we have the concrete Decorators which will have the Common Interface/Abstract class as composition So that it can apply some behaviour on its own type as every class extends this common abstract class
+  . First we create a concrete Decorator class and pass the Concrete class of the main type and keep adding the behaviour recursively
+  
