@@ -1,0 +1,57 @@
+
+1.  Thrashing is the situation when cpu spends more time in context switching rather than the executing the threads
+2.  Starvation is a situation when long thread is executing and other threads are waiting for long time to get executed
+3.  thread.interupt(); to interupt a thread that is running either we need use one of the two following types 
+		a. a propcess whihc throws the Interupted exception process is under process like Thread.sleep()
+		b. Thread.currentThread.isInturrepted() and return
+4. thread.setDemon(true) will stop the thread as soon as the parent thread completes the process in which context the current demon thread is running
+5. thread.join(timeToWait);
+6. Reduce latency and Increase throughput
+7. Critical section : It is the section which needs to executed by 1 thread atmost at any point of time.
+8. The above locking mechanism can be achieved using synchronized key word. Two ways of doing this is as below: 
+	a. synchronized on method. This ensures that any synchronized methods in the class will not be able to be accessed. One lock per Object. This is called Monitor
+	b. synchronized block used to secure the critical block or section and not locking the entire object.
+9.  all assignments to and read from primitive datatypes are atomic except for long and double.
+10. Reference assignments are atomic.
+11. Java.util.atomic is the package that has Classes to perform atomic opertations
+12. Volatile keyword is used to synchronize the setter and getter of the long and double datatypes
+13. Race condition is when two or more threads tries to access a shared resource  when one of it is modifying the value in a non atomic way
+14 Data Race is a condition where instructions are reordered and executed randomly leading to incorrect behaviour when acessing shared resources hence we use volatile keyword for the shared resource.
+15. by using volatile keyword the instructions before are executed before and instructions after are executed afterward hence the order is maintained.
+16. Conditions for the deadlock to happen: 
+	a. Mutual exclusion
+	b. Hold and wait
+	c. Non-preemtive allocation
+	d. circular wait
+	If all four of the above condition is met then the deadlock is bound to happen. If we are able to avoid any one of the above condition then deadlock can be avoided
+17. a. Coarse-grained locking
+	b. Fine-grained locking
+18. Advanced locking :
+	a. ReEnterentLock -> ReEnterentLock lockObject = new ReEnterentLock();
+						{
+							lockObject.lock()
+							use(resource)
+							lockObject.unlock();	
+							
+							}
+						}
+						if(lockObject.tryLock()){
+							lockObject.lock()
+							use(resource)
+							lockObject.unlock();
+						}
+						lockObject.lockIntereptibly();
+	b. ReentrantReadWriteLock lockObject = new ReentrantReadWriteLock();
+		a. This lock has two types of locks readLock()
+		and writeLock();
+19. Semaphores its is type of lock but not used for the same. It decides how many threads can access the critical section at once Producer COnusmer problems solutions are implimented using this technique.
+20. Interprocess communication can be achieved via 
+			a. thread.join();
+			b. semaphore.acquire() and semaphore.release();
+			c. thread.interrupt();
+21. Reentrant re = new Reentrant();
+		re.newCondition();
+		re.await(); // suspends the thread and goes to sleep
+		
+		re.signal(); // sends the signal to all waiting thread of re(on conditional variable)
+22. wait(), notify() and notifyAll() are present in the Object class these needs to be called in a synchronized block.
