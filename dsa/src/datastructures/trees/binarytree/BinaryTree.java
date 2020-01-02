@@ -2,6 +2,7 @@ package datastructures.trees.binarytree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class BinaryTree<T> {
 
@@ -81,7 +82,7 @@ public class BinaryTree<T> {
 			}
 		}
 	}
-	
+
 	public void mirrorImageOfTree(BinaryNode<T> rootNode) {
 		Queue<BinaryNode<T>> queue = new LinkedList<>();
 		queue.add(rootNode);
@@ -93,6 +94,95 @@ public class BinaryTree<T> {
 				queue.add(queue.peek().getLeftNode());
 			}
 			System.out.println(queue.remove().getNodeData());
+		}
+	}
+
+	public void inOrderUsingRecursion(BinaryNode<T> node) {
+
+		Stack<BinaryNode<T>> stack = new Stack<>();
+		BinaryNode<T> temp = node;
+		while (!stack.isEmpty() || temp != null) {
+			if (temp == null) {
+				BinaryNode<T> stackTop = stack.pop();
+				temp = stackTop.getRightNode();
+				System.out.println(stackTop.getNodeData());
+
+			} else {
+				stack.push(temp);
+				temp = temp.getLeftNode();
+			}
+		}
+
+	}
+
+	public void preOrderUsingRecursion(BinaryNode<T> node) {
+
+		Stack<BinaryNode<T>> stack = new Stack<>();
+		BinaryNode<T> temp = node;
+		while (!stack.isEmpty() || temp != null) {
+			if (temp == null) {
+				BinaryNode<T> stackTop = stack.pop();
+				temp = stackTop.getRightNode();
+			} else {
+				System.out.println(temp.getNodeData());
+				stack.push(temp);
+				temp = temp.getLeftNode();
+			}
+		}
+
+	}
+
+	public int countNodes(BinaryNode<T> node) {
+
+		if (node == null) {
+			return 0;
+		}
+		return countNodes(node.getLeftNode()) + countNodes(node.getRightNode()) + 1;
+	}
+
+	public int sumNodes(BinaryNode<T> node) {
+
+		if (node == null) {
+			return 0;
+		}
+		return sumNodes(node.getLeftNode()) + sumNodes(node.getRightNode()) + (Integer) node.getNodeData();
+	}
+
+	public int countInnerNodes(BinaryNode<T> node) {
+
+		if (node != null && (node.getLeftNode() != null || node.getRightNode() != null)) {
+			return countInnerNodes(node.getLeftNode()) + countInnerNodes(node.getRightNode()) + 1;
+		}
+		return 0;
+	}
+
+	public void spiralPrint(BinaryNode<T> node) {
+		Stack<BinaryNode<T>> leftToRightStack = new Stack<>();
+		Stack<BinaryNode<T>> rightToLeftStack = new Stack<>();
+
+		rightToLeftStack.push(node);
+		while (!rightToLeftStack.isEmpty() || !leftToRightStack.isEmpty()) {
+			while (!rightToLeftStack.isEmpty()) {
+				BinaryNode<T> currentPoppedNode = rightToLeftStack.pop();
+				System.out.println(currentPoppedNode.getNodeData());
+				if (currentPoppedNode.getLeftNode() != null) {
+					leftToRightStack.push(currentPoppedNode.getLeftNode());
+				}
+				if (currentPoppedNode.getRightNode() != null) {
+					leftToRightStack.push(currentPoppedNode.getRightNode());
+				}
+			}
+
+			while (!leftToRightStack.isEmpty()) {
+				BinaryNode<T> currentPoppedNode = leftToRightStack.pop();
+				System.out.println(currentPoppedNode.getNodeData());
+				if (currentPoppedNode.getRightNode() != null) {
+					rightToLeftStack.push(currentPoppedNode.getRightNode());
+				}
+				if (currentPoppedNode.getLeftNode() != null) {
+					rightToLeftStack.push(currentPoppedNode.getLeftNode());
+				}
+			}
 		}
 	}
 }
