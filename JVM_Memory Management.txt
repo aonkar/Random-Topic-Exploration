@@ -1,0 +1,29 @@
+1. There is Heap and Stack. Heap is all the memory in your application except for stack
+2. Each thread gets a stack and not sharable between thread
+3. Heap is a common area where the data is stored which can be accessed by all the threads 
+4. All objects are stored on Heap in java. Primitive local variables are store in the Stack
+4. Local variables which are not primitive are created in heap and the reference is stored in the stack. Including String and Integer
+5. Collections.unmodifyableMap and Collections.unmodifyableList this can be used to return a collection from a method which cannot be modified by the calling method.
+6. The unmodifyableList or its variants will create a new collection and return that which cannot be modified. This is for collections
+7. When we want to avoid the mutation of the reference object returned from a method. We create a Interface of the particularObject class and have only get methods into it.
+	Later have the interfce as the return type this is known as upcasting
+8. When we want a particular specific object rather than the generic one then we type cast it to the specific class this is known as downcasting
+9. Integers and string are Pass by reference as well but as they are immutable the value doesn't get changed in the calling method
+10. calling .intern() on  a string will create the string in the String constant pool
+11. Unreachable object are garbage collected and not unreferenced object
+12. System.gc() and System.finalise()
+13. When gc runs then all the threads will be paused
+14. Mark and Sweep :
+		a. First it pauses all running threads
+		b. Then it scans through all the stacks marks all the object in the heap as active
+		c. Then the sweep removes all the unreferenced or the unmarked objects from the heap and fragments it to be at one place rather than scattering it
+		d. Garbage collection is saving the referenced and not removing the non referenced. More the garbage lesser is the time taken by the System.gc();
+		e. (New Generation): Eden -> s0 -> s1 then to Old generation (8 GC surviour)
+		f. permgen is a permenent generation that will never be gc before Java 7. This contains the internalised String metadata of classes and few more
+		g. redeploy of a code will keep both previous class metadata and the new ones as well this is redundant hence we had to restart the tomcat for this
+		h. From java 7+ internalised string are not stored here and created in old gen. From java 8+ has removed permgen. This is outside the heap it is in the system space.
+		i. Redploy will remove old loaded class metadata form java 8+ onwards. this avoids PermGen out of memory error
+	Types of Garbage collector:
+		a. Serial
+		b. Parallel
+		c. Mostly Concurrent (Meaning it will not stop the other threads but its Mostly) 
