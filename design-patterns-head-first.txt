@@ -18,6 +18,36 @@ Decorator Pattern:
   . This pattern is used when you want to add multiple or dynamic functionality/behaviour to an object recursively
   . We use Inheritance sometimes to achieve type matching rather than to get behaviour
   . One Common Interface/Abstract class which we use to create a concrete classes out of it and a Decorator Interface/Abstract class which also extends this class
-  . Then we have the concrete Decorators which will have the Common Interface/Abstract class as composition So that it can apply some behaviour on its own type as every class extends this common abstract class
-  . First we create a concrete Decorator class and pass the Concrete class of the main type and keep adding the behaviour recursively
-  
+
+Command Pattern:
+  . Encapsulating the Invocation
+  . Encapsulate a request as an Object, there by letting you parametrize clients with different request, queues or log requests and support undoable operation
+  . Three main parts are
+      a. The Command Interface - This contains the execute() or the generic method
+      b. The  Invoker - The RemoteControl which which takes a Command Object as a argument in the setCommand method
+      c. The concrete Command class - The Command concrete Object which has implemented the abstract execute method
+      d. The receiver - The actual object which has some action to perform which is passed to the concrete Command Class
+      e. The Client - The client is responsible for creating a concrete command class and setting its receiver
+  . Macro Command which executes a list of Commands on a single go
+
+Adapter and Facade Pattern:
+  . Adapter class implements the client interface and adapts the functionality of the current behaviour of the existing class in accordance to the client Interface
+  . We can throw UnsupportedOperationException() if we cannot accommodate any of the new client interface methods with the existing one
+  . Facade is just an Abstraction class which performs multiple operations of the subsystems. It is used to simplify the operations
+  . We have to call methods of only following level in a class
+      a. Methods of the class
+      b. Methods of the Objects passed in the argument
+      c. Methods of the newly created object in the class
+      d. Any component of the Object
+
+Template Method Pattern:
+  . Encapsulation of Algorithms
+  . The Template Method defines the steps of an algorithm and allows the subclasses to provide the implementation for one or more steps
+  . We need to have an abstract class with the Template Method and have an implementation for the common steps and make the unique per subclasses method abstract
+  . Concrete methods that do nothing by default we call these hooks
+  . Hollywood principle : Don't call us, we will call you
+  . This is very popular in creating frameworks
+
+Iterator and Composite Pattern:
+  . Iterator pattern provides a way to access the elements of an aggregate Object sequentially without exposing its underlying representation
+  . java.util.Iterator is example of Iterator pattern

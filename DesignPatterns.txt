@@ -15,6 +15,7 @@
 				. This class can reside inside the Class as an inner-class or Outside the class
 		   Abstract Factory Pattern:
 				. Is used when there are multiple factories and multiple implementation based on the versions of objects being created
+				. The Product classes and the creator classes
 		c. Prototype Pattern:
 				. Prototype is all about copying
 				. A partially or fully Initialized object that you copy(deep clone) and make use of it
