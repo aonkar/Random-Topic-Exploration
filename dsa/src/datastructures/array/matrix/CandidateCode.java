@@ -1,33 +1,34 @@
 package datastructures.array.matrix;
 
+/* Read input from STDIN. Print your output to STDOUT*/
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
-public class CricketBatManufacturer {
+public class CandidateCode {
+	public static void main(String[] args) throws Exception {
 
-	public static void main(String[] args) {
-		Set<WeightPrice> batSet = new HashSet<>();
-		Set<WeightPrice> cricketerSet = new HashSet<>();
 		Scanner scan = new Scanner(System.in);
-		Integer cricketers = scan.nextInt();
-		Integer bats = scan.nextInt();
-		
-		List<WeightPrice> batsList = new ArrayList<>(bats);
-		List<WeightPrice> cricketersList = new ArrayList<>(cricketers);
-
+		String firstLine = scan.nextLine();
+		Integer cricketers = Integer.parseInt(firstLine.split(" ")[0]);
+		Integer bats = Integer.parseInt(firstLine.split(" ")[1]);
+		List<WeightPrice> batsList = new ArrayList<>();
+		List<WeightPrice> cricketersList = new ArrayList<>();
 		for (int i = 0; i < cricketers; i++) {
-			cricketersList.add(new WeightPrice(scan.nextInt(), scan.nextInt()));
+			String cricketerReq = scan.nextLine();
+			cricketersList.add(new WeightPrice(Integer.parseInt(cricketerReq.split(" ")[0]),
+					Integer.parseInt(cricketerReq.split(" ")[1])));
 		}
+
 		for (int i = 0; i < bats; i++) {
-			batsList.add(new WeightPrice(scan.nextInt(), scan.nextInt()));
+			String batReq = scan.nextLine();
+			batsList.add(
+					new WeightPrice(Integer.parseInt(batReq.split(" ")[0]), Integer.parseInt(batReq.split(" ")[1])));
 		}
 		scan.close();
-
+		List<List<WeightPrice>> finalList = new ArrayList<>();
 		for (WeightPrice cricketer : cricketersList) {
-
 			List<WeightPrice> selectedList = new ArrayList<>();
 			for (WeightPrice bat : batsList) {
 				if (bat.getPrice() <= cricketer.getPrice() && bat.getWeight() > cricketer.getWeight()) {
@@ -35,12 +36,10 @@ public class CricketBatManufacturer {
 				}
 			}
 			if (!selectedList.isEmpty()) {
-				cricketerSet.add(cricketer);
+				finalList.add(selectedList);
 			}
-			batSet.addAll(selectedList);
 		}
-		Integer finalResult = cricketerSet.size() > batSet.size() ? batSet.size() : cricketerSet.size();
-		System.out.println(finalResult);
+		System.out.println("");
 	}
 
 	public static class WeightPrice {
@@ -48,7 +47,6 @@ public class CricketBatManufacturer {
 		private Integer price;
 
 		public WeightPrice(Integer weight, Integer price) {
-			super();
 			this.weight = weight;
 			this.price = price;
 		}
@@ -67,11 +65,6 @@ public class CricketBatManufacturer {
 
 		public void setPrice(Integer price) {
 			this.price = price;
-		}
-
-		@Override
-		public String toString() {
-			return "WeightPrice [weight=" + weight + ", price=" + price + "]";
 		}
 
 		@Override
