@@ -3,33 +3,33 @@ package datastructures.array.matrix;
 /* Read input from STDIN. Print your output to STDOUT*/
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CandidateCode {
 	private static int result = 0;
+	private static int batSize = 0;
+	private static final Map<Integer, List<List<WeightPrice>>> visited = new HashMap<>();
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		String firstLine = scan.nextLine();
-		Integer cricketers = Integer.parseInt(firstLine.split(" ")[0]);
-		Integer bats = Integer.parseInt(firstLine.split(" ")[1]);
+		Integer cricketers = scan.nextInt();
+		Integer bats = scan.nextInt();
 		List<WeightPrice> batsList = new ArrayList<>();
 		List<WeightPrice> cricketersList = new ArrayList<>();
 		for (int i = 0; i < cricketers; i++) {
-			String cricketerReq = scan.nextLine();
-			cricketersList.add(new WeightPrice(Integer.parseInt(cricketerReq.split(" ")[0]),
-					Integer.parseInt(cricketerReq.split(" ")[1])));
+			cricketersList.add(new WeightPrice(scan.nextInt(), scan.nextInt()));
 		}
 
 		for (int i = 0; i < bats; i++) {
-			String batReq = scan.nextLine();
-			batsList.add(
-					new WeightPrice(Integer.parseInt(batReq.split(" ")[0]), Integer.parseInt(batReq.split(" ")[1])));
+			batsList.add(new WeightPrice(scan.nextInt(), scan.nextInt()));
 		}
 		scan.close();
 		List<List<WeightPrice>> finalList = getSelectedBats(batsList, cricketersList);
-		findMaxCombination(finalList, finalList.get(0), 0, new ArrayList<WeightPrice>(), 0, batsList.size());
+		batSize = batsList.size();
+		findMaxCombination(finalList, finalList.get(0), 0, new ArrayList<WeightPrice>(), 0);
 		System.out.println(result);
 	}
 
@@ -51,8 +51,19 @@ public class CandidateCode {
 	}
 
 	private static void findMaxCombination(List<List<WeightPrice>> finalList, List<WeightPrice> list, int count,
-			List<WeightPrice> listTobeRemoved, int finalCount, int batSize) {
+			List<WeightPrice> listTobeRemoved, int finalCount) {
+
+		if (count != 0 && checkIfCombinationAlreadyChecked(count, listTobeRemoved)) {
+			return;
+		}
+		List<WeightPrice> temp = new ArrayList<>();
 		list.removeAll(listTobeRemoved);
+		for (WeightPrice currElem : listTobeRemoved) {
+			if (list.remove(currElem)) {
+				temp.add(currElem);
+			}
+		}
+
 		if (count == finalList.size() - 1) {
 			if (list.isEmpty()) {
 				if (result < finalCount) {
@@ -67,20 +78,45 @@ public class CandidateCode {
 				System.out.println(result);
 				System.exit(0);
 			}
+			if (list.size() != temp.size()) {
+				list.addAll(temp);
+			}
 			return;
 		}
 		if (!list.isEmpty()) {
 			for (int i = 0; i < list.size(); i++) {
 				listTobeRemoved.add(list.get(i));
-				findMaxCombination(finalList, finalList.get(count + 1), count + 1, listTobeRemoved, finalCount + 1,
-						batSize);
-					listTobeRemoved.remove(list.get(i));
+				findMaxCombination(finalList, finalList.get(count + 1), count + 1, listTobeRemoved, finalCount + 1);
+				if (list.size() != temp.size()) {
+					list.addAll(temp);
+				}
+				listTobeRemoved.remove(list.get(i));
 			}
 		} else {
-			findMaxCombination(finalList, finalList.get(count + 1), count + 1, listTobeRemoved, finalCount, batSize);
+			findMaxCombination(finalList, finalList.get(count + 1), count + 1, listTobeRemoved, finalCount);
+			if (list.size() != temp.size()) {
+				list.addAll(temp);
+			}
 
 		}
 
+	}
+
+	private static boolean checkIfCombinationAlreadyChecked(int count, List<WeightPrice> listTobeRemoved) {
+		List<List<WeightPrice>> visitedLists = visited.get(count);
+		if (visitedLists != null && !listTobeRemoved.isEmpty()) {
+			for (List<WeightPrice> visitedList : visitedLists) {
+				if (visitedList.containsAll(listTobeRemoved)) {
+					return true;
+				}
+			}
+			visitedLists.add(listTobeRemoved);
+		} else if (!listTobeRemoved.isEmpty()) {
+			List<List<WeightPrice>> newList = new ArrayList<>();
+			newList.add(newList.size(), listTobeRemoved);
+			visited.put(count, newList);
+		}
+		return false;
 	}
 
 	public static class WeightPrice {
