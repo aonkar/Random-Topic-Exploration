@@ -7,12 +7,15 @@ public class BinaryTreeOperations {
 	public static void main(String[] args) {
 
 		BinaryTree<Integer> binaryTree = new BinaryTree<>(10);
-		binaryTree.addNode(8);
-		binaryTree.addNode(19);
-		binaryTree.addNode(-5);
-		binaryTree.addNode(9);
+		binaryTree.addNode(1);
+		binaryTree.addNode(2);
 		binaryTree.addNode(3);
-		binaryTree.addNode(21);
+		binaryTree.addNode(4);
+		binaryTree.addNode(5);
+		binaryTree.addNode(6);
+		binaryTree.addNode(7);
+		binaryTree.addNode(8);
+		binaryTree.addNode(9);
 
 //		System.out.println("Level Order Traversal : ");
 //		binaryTree.levelOrderTraversal(binaryTree.getRootNode());
@@ -28,10 +31,12 @@ public class BinaryTreeOperations {
 //		binaryTree.mirrorImageOfTree(binaryTree.getRootNode());
 //		System.out.println(binaryTree.countInnerNodes(binaryTree.getRootNode()));
 //		binaryTree.spiralPrint(binaryTree.getRootNode());
-		CheckIfBST bst = new CheckIfBST();
-		System.out.println(bst.isBST(binaryTree.getRootNode()));
-		
-		
+//		CheckIfBST bst = new CheckIfBST();
+//		System.out.println(bst.isBST(binaryTree.getRootNode()));
+
+		BinaryTreeView topView = new BinaryTreeView();
+//		topView.printView(binaryTree.getRootNode(), VIEW.TOPVIEW);
+		topView.printView(binaryTree.getRootNode(), VIEW.BOTTOMVIEW);
 
 	}
 

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class QuickSort {
 
 	public static void main(String[] args) {
-		final Integer[] array = new Integer[] { 2, 4, 1, 5, 2, 1, 7, 3, 6, 7, 8, 3, 4 };
+		final Integer[] array = new Integer[] { 8,4,3,5,6,1,2,-1,-1,0,56,3,2,9,5,6,-1 };
 		quickSort(array, 0, array.length - 1);
 		Arrays.asList(array).forEach(System.out::print);
 	}
@@ -21,7 +21,7 @@ public class QuickSort {
 	}
 
 	private static Integer partition(Integer[] array, Integer low, Integer high, Integer pivot) {
-		while (low < high) {
+		while (low <= high) {
 			while (low <= high && array[low] < pivot) {
 				low++;
 			}
