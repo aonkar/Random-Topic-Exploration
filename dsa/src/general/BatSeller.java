@@ -1,6 +1,7 @@
 package com.example.demo5;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +36,42 @@ public class BatSeller {
                 batLists.add(batList);
             }
         });
-        System.out.println(batLists);
         final Set<String> availableBats = new HashSet<>();
         batLists.forEach(batList -> batList.forEach(bat -> availableBats.add(bat)));
-        System.out.println(availableBats);
+        System.out.println(calculateMaxSale(batLists, availableBats, 0, new HashMap<>()));
+    }
 
+    private static int calculateMaxSale(final List<List<String>> batLists,
+                                         final Set<String> availableBats,
+                                         final int index,
+                                        final HashMap<Set<String>,Integer> cache) {
+        if(cache.containsKey(availableBats)){
+            return cache.get(availableBats);
+        }
+        int max = 0;
+        if (index == batLists.size() || availableBats.isEmpty()) {
+            System.out.println("hi");
+            return 0;
+        }
+        final List<String> currentCricketersBatList = batLists.get(index);
+        for (int i = 0; i < currentCricketersBatList.size(); i++) {
+            if (availableBats.contains(currentCricketersBatList.get(i))) {
+                availableBats.remove(currentCricketersBatList.get(i));
+                int selected = 1 + calculateMaxSale(batLists, availableBats, index + 1, cache);
+                availableBats.add(currentCricketersBatList.get(i));
+                if(max < selected){
+                    max = selected;
+                    cache.put(availableBats, max);
+                }
+            } else {
+                int notSelected = calculateMaxSale(batLists, availableBats, index + 1, cache);
+                if(max < notSelected){
+                    max = notSelected;
+                    cache.put(availableBats, max);
+                }
+            }
+        }
+        return max;
     }
 
     public static class WeightPrice {

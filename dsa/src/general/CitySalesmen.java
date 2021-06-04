@@ -19,24 +19,19 @@ public class CitySalesmen {
                                           final int day,
                                           final String currentCity,
                                           final Map<String, Integer> resultCache) {
+        if(resultCache.containsKey(currentCity+day)){
+            return resultCache.get(currentCity+day);
+        }
         if (day == cityA.length) {
             return 0;
         }
         if (currentCity.equals("a")) {
-            if(resultCache.containsKey(currentCity+day)){
-                return resultCache.get(currentCity+day);
-            }
-            System.out.println("a");
             int profitWithoutTravelling = cityA[day] + calculateMaxProfit(cityA, cityB, travelCost, day + 1, "a", resultCache);
             int profitWithTravelling = cityA[day] + calculateMaxProfit(cityA, cityB, travelCost, day + 1, "b", resultCache) - travelCost;
             int maxProfit = Math.max(profitWithoutTravelling, profitWithTravelling);
             resultCache.put(currentCity+day, maxProfit);
             return maxProfit;
         } else {
-            if(resultCache.containsKey(currentCity+day)){
-                return resultCache.get(currentCity+day);
-            }
-            System.out.println("b");
             int profitWithoutTravelling = cityB[day] + calculateMaxProfit(cityA, cityB, travelCost, day + 1, "b", resultCache);
             int profitWithTravelling = cityB[day] + calculateMaxProfit(cityA, cityB, travelCost, day + 1, "a", resultCache) - travelCost;
             int maxProfit =  Math.max(profitWithoutTravelling, profitWithTravelling);
